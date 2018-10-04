@@ -93,7 +93,7 @@
 <section class="engine"></section><section class="mbr-gallery mbr-slider-carousel cid-r4IWN053Sc" id="gallery3-f">
     <div>
 <?php
-
+// TODO: CASSANDRA!!!!! 
 $cluster = Cassandra::cluster()
     ->withContactPoints('172.17.0.3','172.17.0.4')
     ->withPort(9042)
