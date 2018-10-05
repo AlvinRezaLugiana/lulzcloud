@@ -54,17 +54,14 @@
     
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
-                <form class="example" action="#">
-                <input type="text" placeholder="Search.." name="search">
-                 <button type="submit"><i class="fa fa-search"></i></button>
-               </form>
+                
               </div>
 
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item dropdown open">
-                    <a class="nav-link link text-black display-7"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" id="myBtn"></span>Upload</a>
+                    <a class="nav-link link text-black display-7"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" id="myBtn"></span></a>
                 </li></ul>
 
             <div class="modal fade" id="myModal" role="dialog">
