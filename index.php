@@ -124,9 +124,9 @@
 
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card\" style=\"width: 18rem;\">";
-                    echo "<div class=\"card-header\">"+$row['title']+"</div>";
+                    echo "<div class=\"card-header\">".$row['title']."</div>";
                     echo "<div class=\"card-body\">";
-                       echo "<p class=\"card-text\">"+$row['file']+"</p>";
+                        echo "<p class=\"card-text\">".$row['file']."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
                         echo "<a href=\"#\" class=\"card-link\">Edit</a>";
@@ -134,6 +134,8 @@
                     echo "</div>";
                 echo "</div>";
             }
+
+            
 
             ?>
         </div>
