@@ -78,7 +78,7 @@
                         <form action="" method="post">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre><textarea style="resize:none" name="name" cols="42" rows="10"></textarea></pre>
+                                <pre>Text : <textarea style="resize:none" name="name" cols="42" rows="10"></textarea></pre>
                                 <pre>Title	: <input type="text" name="usrname"></pre>
                                 <pre>Author	: <input type="text" name="author"></pre>
                             </div>
@@ -103,176 +103,23 @@
 </section>
 
 <section class="engine"></section><section class="mbr-gallery mbr-slider-carousel cid-r4IWN053Sc" id="gallery3-f">
-    <div>
-        <div>
-			<!-- Filter -->
-			<div class="mbr-gallery-filter container gallery-filter-active">
-				<ul buttons="0">
-				<li class="mbr-gallery-filter-all">
-				<a class="btn btn-md btn-primary-outline active display-7" href="">All</a>
-				</li>
-				</ul>
-			</div>
-			<!-- Gallery -->
-			<div class="mbr-gallery-row">
-				<div class="mbr-gallery-layout-default">
-				<div>
-					<div>
-						<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Hot">
-							<div href="#lb-gallery3-f" data-slide-to="0" data-toggle="modal">
-							<img src="assets/images/gallery00.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-							</div>
-							</br><button class="btn-secondary like-review" onclick="AddClick1()">
-								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
-							</button>
-							<span id="CountedClicks1"></span>
-							<script>
-							$(function(){
-								$(document).one('click', '.like-review', function(e) {
-									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-									$(this).children('.fa-heart').addClass('animate-like');
-								});
-							});
-							</script>
-							<script>
-							var Clicks = 0 ;
-							function AddClick1(){
-							Clicks = Clicks + 1;
-							document.getElementById('CountedClicks1').innerHTML = Clicks + ' Likes';
-							}
-							</script>
-						</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Fresh">
-						<div href="#lb-gallery3-f" data-slide-to="1" data-toggle="modal">
-							<img src="assets/images/gallery01.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-						</br><button class="btn-secondary like-review" onclick="AddClick2()">
-								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
-							</button>
-							<span id="CountedClicks2"></span>
-							<script>
-							$(function(){
-								$(document).one('click', '.like-review', function(e) {
-									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-									$(this).children('.fa-heart').addClass('animate-like');
-								});
-							});
-							</script>
-							<script>
-							var Clicks = 0 ;
-							function AddClick2(){
-							Clicks = Clicks + 1;
-							document.getElementById('CountedClicks2').innerHTML = Clicks + ' Likes';
-							}
-							</script>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="NSFW">
-						<div href="#lb-gallery3-f" data-slide-to="2" data-toggle="modal">
-							<img src="assets/images/gallery02.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-						</br><button class="btn-secondary like-review" onclick="AddClick3()">
-								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
-							</button>
-							<span id="CountedClicks3"></span>
-							<script>
-							$(function(){
-								$(document).one('click', '.like-review', function(e) {
-									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-									$(this).children('.fa-heart').addClass('animate-like');
-								});
-							});
-							</script>
-							<script>
-							var Clicks = 0 ;
-							function AddClick3(){
-							Clicks = Clicks + 1;
-							document.getElementById('CountedClicks3').innerHTML = Clicks + ' Likes';
-							}
-							</script>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="All Time Fav">
-						<div href="#lb-gallery3-f" data-slide-to="3" data-toggle="modal">
-							<img src="assets/images/gallery03.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Hot">
-						<div href="#lb-gallery3-f" data-slide-to="4" data-toggle="modal">
-							<img src="assets/images/gallery04.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Hot">
-						<div href="#lb-gallery3-f" data-slide-to="5" data-toggle="modal">
-							<img src="assets/images/gallery05.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Fresh">
-						<div href="#lb-gallery3-f" data-slide-to="6" data-toggle="modal">
-							<img src="assets/images/gallery06.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-					</div>
-					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="All Time Fav">
-						<div href="#lb-gallery3-f" data-slide-to="7" data-toggle="modal">
-							<img src="assets/images/gallery07.jpg" alt="" title="">
-							<span class="icon-focus"></span>
-						</div>
-					</div>
-					</div>
-				</div>
-			<div class="clearfix">
-			</div>
-			</div>
-			</div>
-			<!-- Lightbox -->
-			<div data-app-prevent-settings="" class="mbr-slider modal fade carousel slide" tabindex="-1" data-keyboard="true" data-interval="false" id="lb-gallery3-f">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-body">
-							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="assets/images/gallery00.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery01.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery02.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery03.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery04.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery05.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery06.jpg" alt="" title="">
-								</div>
-								<div class="carousel-item">
-									<img src="assets/images/gallery07.jpg" alt="" title="">
-								</div>
-							</div>
-						<a class="carousel-control carousel-control-prev" role="button" data-slide="prev" href="#lb-gallery3-f">
-						<span class="mbri-left mbr-iconfont" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span></a>
-						<a class="carousel-control carousel-control-next" role="button" data-slide="next" href="#lb-gallery3-f">
-						<span class="mbri-right mbr-iconfont" aria-hidden="true"></span>
-						<span class="sr-only">Next</span></a>
-						<a class="close" href="#" role="button" data-dismiss="modal">
-						<span class="sr-only">Close</span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+
+    <div class="container-fluid">
+
+        <div class="card-columns">
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
 </section>
@@ -297,4 +144,5 @@
       <a href="index.php"> 69.com</a>
     </div>
 </footer>
+
 </html>
