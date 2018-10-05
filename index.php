@@ -48,7 +48,6 @@
                     </a>
                 </span>
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="#">.com</a></span>
-                <input type="text" placeholder="Search.." name="search">
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -108,21 +107,77 @@
 						<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Hot">
 							<div href="#lb-gallery3-f" data-slide-to="0" data-toggle="modal">
 							<img src="assets/images/gallery00.jpg" alt="" title="">
-							<span class="icon-focus">
-							</span>
+							<span class="icon-focus"></span>
 							</div>
+							</br><button class="btn-secondary like-review" onclick="AddClick1()">
+								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
+							</button>
+							<span id="CountedClicks1"></span>
+							<script>
+							$(function(){
+								$(document).one('click', '.like-review', function(e) {
+									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+									$(this).children('.fa-heart').addClass('animate-like');
+								});
+							});
+							</script>
+							<script>
+							var Clicks = 0 ;
+							function AddClick1(){
+							Clicks = Clicks + 1;
+							document.getElementById('CountedClicks1').innerHTML = Clicks + ' Likes';
+							}
+							</script>
 						</div>
 					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="Fresh">
 						<div href="#lb-gallery3-f" data-slide-to="1" data-toggle="modal">
 							<img src="assets/images/gallery01.jpg" alt="" title="">
 							<span class="icon-focus"></span>
 						</div>
+						</br><button class="btn-secondary like-review" onclick="AddClick2()">
+								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
+							</button>
+							<span id="CountedClicks2"></span>
+							<script>
+							$(function(){
+								$(document).one('click', '.like-review', function(e) {
+									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+									$(this).children('.fa-heart').addClass('animate-like');
+								});
+							});
+							</script>
+							<script>
+							var Clicks = 0 ;
+							function AddClick2(){
+							Clicks = Clicks + 1;
+							document.getElementById('CountedClicks2').innerHTML = Clicks + ' Likes';
+							}
+							</script>
 					</div>
 					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="NSFW">
 						<div href="#lb-gallery3-f" data-slide-to="2" data-toggle="modal">
 							<img src="assets/images/gallery02.jpg" alt="" title="">
 							<span class="icon-focus"></span>
 						</div>
+						</br><button class="btn-secondary like-review" onclick="AddClick3()">
+								<i class="fa fa-heart" aria-hidden="true"></i> Only Like
+							</button>
+							<span id="CountedClicks3"></span>
+							<script>
+							$(function(){
+								$(document).one('click', '.like-review', function(e) {
+									$(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+									$(this).children('.fa-heart').addClass('animate-like');
+								});
+							});
+							</script>
+							<script>
+							var Clicks = 0 ;
+							function AddClick3(){
+							Clicks = Clicks + 1;
+							document.getElementById('CountedClicks3').innerHTML = Clicks + ' Likes';
+							}
+							</script>
 					</div>
 					<div class="mbr-gallery-item mbr-gallery-item--p3" data-video-url="false" data-tags="All Time Fav">
 						<div href="#lb-gallery3-f" data-slide-to="3" data-toggle="modal">
