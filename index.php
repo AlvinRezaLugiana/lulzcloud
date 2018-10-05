@@ -20,9 +20,12 @@
     <link rel="stylesheet" href="assets/theme/css/style.css">
     <link rel="stylesheet" href="assets/gallery/style.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
 
 
 </head>
@@ -43,12 +46,16 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="#">
+                    <a href="index.php">
                         <img src="assets/images/123123123-122x97.png" alt="Mobirise" title="" style="height: 5.3rem;">
                     </a>
                 </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="#">.com</a></span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
+                <form class="example" action="#">
                 <input type="text" placeholder="Search.." name="search">
+                 <button type="submit"><i class="fa fa-search"></i></button>
+               </form>
+              </div>
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -223,4 +230,9 @@
 
 
 </body>
+<footer>
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="index.php"> 69.com</a>
+    </div>
+</footer>
 </html>
