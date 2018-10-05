@@ -54,7 +54,7 @@
     
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
-                
+
               </div>
 
             </div>
@@ -75,15 +75,40 @@
                         <form action="" method="post">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre>Text : <textarea style="resize:none" name="name" cols="42" rows="10"></textarea></pre>
-                                <pre>Title	: <input type="text" name="usrname"></pre>
-                                <pre>Author	: <input type="text" name="author"></pre>
+                                <pre>Text       : <textarea style="resize:none" name="text" cols="42" rows="10"></textarea></pre>
+                                <pre>Title	    : <input type="text" name="title"></pre>
+                                <pre>Author	    : <input type="text" name="author"></pre>
+                                <pre>Category   : <select id="category" name="category">
+                                    <option value="0" disabled>--Select Category--</option>
+                                    <option value="1">NSFW</option>
+                                    <option value="2">Funny</option>
+                                    <option value="3">Random</option>
+                                </select></pre>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" value="Send some memes boiz">
                                 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>-->
                             </div>
                         </form>
+                        <?php
+                            if($_SERVER['REQUEST_METHOD'] == 'POST')
+                            {
+                                $cluster = Cassandra::cluster()
+                                    ->withContactPoints('172.23.99.108') // cassandra address
+                                    ->withPort(9042)
+                                    ->build();
+                                $keyspace = 'cloudcomputing'; // keyspace
+                                $session = $cluster->connect($keyspace);
+                                $statement = new Cassandra\SimpleStatement(
+                                    "INSERT into meme(id, file, title, author, category, time, likes) values (uuid(),?,?,?,?,toUnixTimestamp(now()),0)" // cql sentence
+                                );
+
+                                $text = $_POST['text'];
+                                $title = $_POST['title'];
+                                $author = $_POST['author'];
+                                $category = $_POST['category'];
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
