@@ -108,19 +108,34 @@
 
         <div class="card-columns">
 
+            <?php
+            $cluster = Cassandra::cluster()
+                ->withContactPoints('172.23.99.108') // cassandra address
+                ->withPort(9042)
+                ->build();
+            $keyspace = 'cloudcomputing'; // keyspace
+            $session = $cluster->connect($keyspace);
+            $statement = new Cassandra\SimpleStatement(
+                "SELECT * FROM meme" // cql sentence
+            );
+            $future = $session->executeAsync($statement); // fully asynchronous and easy parallel execution
+            $result = $future->get(); // wait for the result, with an optional timeout
 
 
-            <div class="card" style="width 18rem;">
-                <div class="card-header">$row['title']</div>
-                <div class="card-body">
-                    <p class="card-text">$row['file']</p>
-                </div>
-                <div class="card-footer"><a href="#" class="card-link">Edit</a>
-                    <a href="#" class="card-link">Delete</a></div>
-            </div>
+            foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+                echo "<div class=\"card\" style=\"width: 18rem;\">";
+                    echo "<div class=\"card-header\">"+$row['title']+"</div>";
+                    echo "<div class=\"card-body\">";
+                       echo "<p class=\"card-text\">"+$row['file']+"</p>";
+                    echo "</div>";
+                    echo "<div class=\"card-footer\">";
+                        echo "<a href=\"#\" class=\"card-link\">Edit</a>";
+                        echo "<a href=\"#\" class=\"card-link\">Delete</a>";
+                    echo "</div>";
+                echo "</div>";
+            }
 
-            
-
+            ?>
         </div>
     </div>
 
