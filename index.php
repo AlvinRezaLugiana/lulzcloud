@@ -139,6 +139,8 @@ $session = $cluster->connect($keyspace);
                     echo "<div class=\"card-header\">".$row['title']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
+                        $timestamp = (int) substr($row['time'],0,-3);
+                        echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
                         echo "<a href=\"#\" class=\"card-link\">".$row['likes']." Likes</a>";
