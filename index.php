@@ -30,6 +30,17 @@
 
 </head>
 <body>
+
+<?php
+
+$cluster = Cassandra::cluster()
+    ->withContactPoints('172.23.99.108') // cassandra address
+    ->withPort(9042)
+    ->build();
+$keyspace = 'cloudcomputing'; // keyspace
+$session = $cluster->connect($keyspace);
+
+?>
 <section class="menu cid-r4INLFisah" once="menu" id="menu2-6">
 
 
@@ -86,29 +97,12 @@
                                 </select></pre>
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" value="Send some memes boiz">
+                                <input type="submit" name="SubmitButton" value="Send some memes boiz">
                                 <!--<button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>-->
                             </div>
-                        </form>
-                        <?php
-                            if($_SERVER['REQUEST_METHOD'] == 'POST')
-                            {
-                                $cluster = Cassandra::cluster()
-                                    ->withContactPoints('172.23.99.108') // cassandra address
-                                    ->withPort(9042)
-                                    ->build();
-                                $keyspace = 'cloudcomputing'; // keyspace
-                                $session = $cluster->connect($keyspace);
-                                $statement = new Cassandra\SimpleStatement(
-                                    "INSERT into meme(id, file, title, author, category, time, likes) values (uuid(),?,?,?,?,toUnixTimestamp(now()),0)" // cql sentence
-                                );
 
-                                $text = $_POST['text'];
-                                $title = $_POST['title'];
-                                $author = $_POST['author'];
-                                $category = $_POST['category'];
-                            }
-                        ?>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -130,13 +124,9 @@
 
         <div class="card-columns">
 
+
+
             <?php
-            $cluster = Cassandra::cluster()
-                ->withContactPoints('172.23.99.108') // cassandra address
-                ->withPort(9042)
-                ->build();
-            $keyspace = 'cloudcomputing'; // keyspace
-            $session = $cluster->connect($keyspace);
             $statement = new Cassandra\SimpleStatement(
                 "SELECT * FROM meme" // cql sentence
             );
@@ -151,7 +141,7 @@
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
-                        echo "<a href=\"#\" class=\"card-link\">Edit</a>";
+                        echo "<a href=\"#\" class=\"card-link\">".$row['likes']." Likes</a>";
                         echo "<a href=\"#\" class=\"card-link\">Delete</a>";
                     echo "</div>";
                 echo "</div>";
