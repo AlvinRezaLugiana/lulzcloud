@@ -162,6 +162,7 @@ $session = $cluster->connect($keyspace);
                         echo "<a href=\"#\" class=\"card-link\">Delete</a>";
                     echo "</div>";
                 echo "</div>";
+                echo "<br>";
             }
 
             

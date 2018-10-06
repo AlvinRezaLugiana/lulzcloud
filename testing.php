@@ -118,10 +118,26 @@
         if(isset($_POST['text']) || isset($_POST['title']) || isset($_POST['author']) || isset($_POST['category'] ))
         {
 
-            echo $_POST['text'];
-            echo $_POST['title'];
-            echo $_POST['author'];
-            echo $_POST['category'];
+            $statement = new Cassandra\SimpleStatement(
+                "INSERT into meme(id, file, title, author, category, time, likes) 
+                  VALUES (uuid(), ?,?,?,?,toUnixTimestamp(now()),?)"
+            );
+            $inserts = array(
+                array(
+
+                    'file'  => $_POST['text'],
+                    'title'   => $_POST['title'],
+                    'author'   => $_POST['author'],
+                    'category' => $_POST['category'],
+                    'likes' => '0',
+
+                ),
+
+            );
+
+            foreach ($inserts as $insert){
+                $session->execute($statement,array('arguments'=>$insert));
+            }
         }
 
         ?>
