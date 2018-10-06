@@ -124,7 +124,21 @@ $session = $cluster->connect($keyspace);
 
         <div class="card-columns">
 
+            <?php
 
+            if(isset($_POST['text']) || isset($_POST['title']) || isset($_POST['author']) || isset($_POST['category'])) {
+
+
+                $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
+                  VALUES (uuid(), ?,?,?,?,toUnixTimestamp(now()),?)');
+
+
+                $session->execute($statement, array(
+                    'arguments' => array($_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], 0)
+                ));
+            }
+
+            ?>
 
             <?php
             $statement = new Cassandra\SimpleStatement(
