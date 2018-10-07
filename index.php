@@ -158,11 +158,30 @@ $session = $cluster->connect($keyspace);
                         echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
-                        echo "<a href=\"#\" class=\"card-link\">".$row['likes']." Likes</a>";
-                        echo "<a href=\"#\" class=\"card-link\">Delete</a>";
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['likes'];
+                        echo "\" name=\"likes\">";
+                        echo"<input type=\"submit\" value=\"";
+                            echo $row['likes'];
+                        echo " Likes\" name=\"updateLikes\"";
+                        echo "<input type=\"submit\" value=\"";
+                            echo $row['likes'];
+                        echo " Likes\" name=\"Update\">";
+                        echo "</form>";
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
+                        echo "</form>";
                     echo "</div>";
                 echo "</div>";
-                echo "<br>";
             }
 
             
