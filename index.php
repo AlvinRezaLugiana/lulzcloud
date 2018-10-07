@@ -143,19 +143,26 @@ $session = $cluster->connect($keyspace);
             <?php
             // UPDATE
 
-            if(isset($_POST['Update']))
+            if(isset($_POST['updateLikes'])) {
+                $session->execute(
+                    "UPDATE meme SET likes = ? WHERE id=?",
+                    array('arguments' => array($_POST['likes'] + 1, $_POST['id']))
+                );
+            }
 
-            $session->execute(
-                "UPDATE meme SET likes = ? WHERE id=?",
-                array('arguments' => array($_POST['likes']+1, $_POST['id']))
-            );
             ?>
 
             <?php
-            
 
+            if(isset($_POST['Delete'])) {
+                $statement = $session->prepare('Delete from meme Where id=?;');
 
+                $session->execute($statement, array(
+                    'arguments' => array($_POST['id'])
+                ));
+            }
             ?>
+
 
 
             <?php
