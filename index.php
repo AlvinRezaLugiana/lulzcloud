@@ -141,26 +141,26 @@ $session = $cluster->connect($keyspace);
             ?>
 
             <?php
-            // UPDATE
+            // UPSERT
 
             if(isset($_POST['updateLikes'])) {
-                $session->execute(
-                    "UPDATE meme SET likes = ? WHERE id=?",
-                    array('arguments' => array($_POST['likes'] + 1, $_POST['id']))
-                );
+                $currentLike = $_POST['likes'];
+                $updateLikes = $currentLike + 1;
+
+                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toUnixTimestamp(now())');
+
+
+                $session->execute($statement, array(
+                    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'])
+                ));
             }
 
             ?>
 
             <?php
+            // DELETE
 
-            if(isset($_POST['Delete'])) {
-                $statement = $session->prepare('Delete from meme Where id=?;');
 
-                $session->execute($statement, array(
-                    'arguments' => array($_POST['id'])
-                ));
-            }
             ?>
 
 
@@ -168,16 +168,17 @@ $session = $cluster->connect($keyspace);
             <?php
             // RETRIEVE
             $statement = new Cassandra\SimpleStatement(
-                "SELECT * FROM meme" // cql sentence
+                "SELECT * FROM meme
+PER PARTITION LIMIT 2;" // cql sentence
             );
             $future = $session->executeAsync($statement); // fully asynchronous and easy parallel execution
             $result = $future->get(); // wait for the result, with an optional timeout
 
 
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
-                echo "<div class=\"card text-center\" style=\"width: 21rem; margin:0 auto;\">";
+                echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']."</div>";
+                    echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int) substr($row['time'],0,-3);
@@ -189,6 +190,12 @@ $session = $cluster->connect($keyspace);
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['id'];
                         echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['category'];
+                        echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
@@ -202,8 +209,14 @@ $session = $cluster->connect($keyspace);
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['id'];
+                        echo $row['id'];
                         echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
                     echo "</div>";
