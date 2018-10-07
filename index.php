@@ -125,8 +125,8 @@ $session = $cluster->connect($keyspace);
         <div class="card-columns">
 
             <?php
-
-            if(isset($_POST['text']) || isset($_POST['title']) || isset($_POST['author']) || isset($_POST['category'])) {
+            // CREATE
+            if(isset($_POST['SubmitButton'])) {
 
 
                 $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
@@ -141,6 +141,25 @@ $session = $cluster->connect($keyspace);
             ?>
 
             <?php
+            // UPDATE
+
+            if(isset($_POST['Update']))
+
+            $session->execute(
+                "UPDATE meme SET likes = ? WHERE id=?",
+                array('arguments' => array($_POST['likes']+1, $_POST['id']))
+            );
+            ?>
+
+            <?php
+            
+
+
+            ?>
+
+
+            <?php
+            // RETRIEVE
             $statement = new Cassandra\SimpleStatement(
                 "SELECT * FROM meme" // cql sentence
             );

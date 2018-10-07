@@ -114,32 +114,19 @@
 
     <div class="container-fluid">
 
+        <form action="" method="POST">
+            <input type="hidden" value="id" name="id">
+            <input type="hidden" value="1" name="likes">
+            <input type="submit" value="Delete" name="Delete">
+        </form>
+
         <?php
-        if(isset($_POST['text']) || isset($_POST['title']) || isset($_POST['author']) || isset($_POST['category'] ))
+        if (isset($_POST["Delete"]))
         {
 
-            $statement = new Cassandra\SimpleStatement(
-                "INSERT into meme(id, file, title, author, category, time, likes) 
-                  VALUES (uuid(), ?,?,?,?,toUnixTimestamp(now()),?)"
-            );
-            $inserts = array(
-                array(
+            echo $_POST["likes"] + 1;
 
-                    'file'  => $_POST['text'],
-                    'title'   => $_POST['title'],
-                    'author'   => $_POST['author'],
-                    'category' => $_POST['category'],
-                    'likes' => '0',
-
-                ),
-
-            );
-
-            foreach ($inserts as $insert){
-                $session->execute($statement,array('arguments'=>$insert));
-            }
         }
-
         ?>
     </div>
 
