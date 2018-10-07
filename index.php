@@ -147,18 +147,33 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toUnixTimestamp(now())');
-
+                #$statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=?)');
+                #$session->execute($statement, array(
+                #    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'], ($_POST['time']))
+                #));
+                
+                $statement = $session->prepare('INSERT into meme(id,category, time, likes)
+                  VALUES (?,?,?,?');
 
                 $session->execute($statement, array(
-                    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'])
+                    'arguments' => array($_POST['id'], $_POST['category'], ($_POST['time']),$updateLikes)
                 ));
+
             }
 
             ?>
 
             <?php
             // DELETE
+                if(isset($_POST['Delete']))
+                {
+                    $statement = $session->prepare('Delete from meme Where id=? AND category =? AND time = ?');
+
+
+                    $session->execute($statement, array(
+                        'arguments' => array($_POST['id'], $_POST['category'], ($_POST['time']))
+                    ));
+                }
 
 
             ?>
@@ -178,7 +193,7 @@ PER PARTITION LIMIT 2;" // cql sentence
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
+                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int) substr($row['time'],0,-3);
