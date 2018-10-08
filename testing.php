@@ -20,18 +20,13 @@
     <link rel="stylesheet" href="assets/theme/css/style.css">
     <link rel="stylesheet" href="assets/gallery/style.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-    <link rel="stylesheet" href="index.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
 
-
 </head>
 <body>
-
-
 <section class="menu cid-r4INLFisah" once="menu" id="menu2-6">
 
 
@@ -48,22 +43,17 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="index.php">
+                    <a href="#">
                         <img src="assets/images/123123123-122x97.png" alt="Mobirise" title="" style="height: 5.3rem;">
                     </a>
                 </span>
-
-
-
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
-
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="#">.com</a></span>
+                <input type="text" placeholder="Search.." name="search">
             </div>
-
-        </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item dropdown open">
-                    <a class="nav-link link text-black display-7"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" id="myBtn"></span></a>
+                    <a class="nav-link link text-black display-7"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" id="myBtn"></span>Upload</a>
                 </li></ul>
 
             <div class="modal fade" id="myModal" role="dialog">
@@ -74,27 +64,16 @@
                             <h4 class="modal-title">Upload your Meme</h4>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
-                        <form action="" method="post">
+                        <form>
                             <div class="modal-body">
-                                <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre>Text       : <textarea style="resize:none" name="text" cols="42" rows="10"></textarea></pre>
-                                <pre>Title	    : <input type="text" name="title"></pre>
-                                <pre>Author	    : <input type="text" name="author"></pre>
-                                <pre>Category   : <select id="category" name="category">
-                                    <option value="0" disabled>--Select Category--</option>
-                                    <option value="NSFW">NSFW</option>
-                                    <option value="Funny">Funny</option>
-                                    <option value="Random">Random</option>
-                                </select></pre>
+                                <input type="file" name="fileToUpload" id="fileToUpload"></br></br>
+                                <pre>Title	: <input type="text" name="usrname"></pre>
+                                <pre>Author	: <input type="text" name="author"></pre>
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" name="SubmitButton" value="Send some memes boiz">
-                                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>-->
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
                             </div>
-
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -110,26 +89,31 @@
     </nav>
 </section>
 
+
 <section class="engine"></section><section class="mbr-gallery mbr-slider-carousel cid-r4IWN053Sc" id="gallery3-f">
+    <div>
+<?php
+// TODO: CASSANDRA!!!!! 
+$cluster = Cassandra::cluster()
+    ->withContactPoints('172.17.0.3','172.17.0.4')
+    ->withPort(9042)
+    ->build();
+    $keyspace = 'cloudcomputing';
+    $session = $cluster->connect($keyspace);
+    $statement = new Cassandra\SimpleStatement("Select * From data where campus = 'St Lucia'");
+    $future = $session->executeAsync($statement);
+    $result = $future->get();
 
-    <div class="container-fluid">
-
-        <form action="" method="POST">
-            <input type="hidden" value="id" name="id">
-            <input type="hidden" value="1" name="likes">
-            <input type="submit" value="Delete" name="Delete">
-        </form>
-
-        <?php
-        if (isset($_POST["Delete"]))
+    echo "<table>";
+    foreach ($result as $row)
+    {
         {
-
-            echo $_POST["likes"] + 1;
-
+            echo "<tr><td><" .implode("|",$row) ."</td></tr>";
         }
-        ?>
+        echo "</table>";
+    }
+?>
     </div>
-
 </section>
 <script src="assets/tether/tether.min.js"></script>
 <script src="assets/dropdown/js/script.min.js"></script>
@@ -147,10 +131,4 @@
 
 
 </body>
-<footer>
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="index.php"> 69.com</a>
-    </div>
-</footer>
-
 </html>
