@@ -147,7 +147,7 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toDate(now())');
+                $statement = $session->prepare('UPDATE meme SET likes =? WHERE CATEGORY=? AND TITLE =? AND ID=? AND TIME = ?');
 
 
                 $session->execute($statement, array(
@@ -191,21 +191,23 @@ PER PARTITION LIMIT 2;" // cql sentence
                             echo $row['id'];
                         echo "\" name=\"id\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['time'];
-                        echo "\" name=\"time\">";
-                        echo "<input type=\"hidden\" value=\"";
                             echo $row['category'];
                         echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
+                            echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
-                        echo"<input type=\"submit\" value=\"";
-                            echo $row['likes'];
-                        echo " Likes\" name=\"updateLikes\"";
                         echo "<input type=\"submit\" value=\"";
                             echo $row['likes'];
-                        echo " Likes\" name=\"Update\">";
+                        echo " Likes\" name=\"updateLikes\">";
+
                         echo "</form>";
+
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
