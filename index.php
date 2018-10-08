@@ -25,6 +25,7 @@
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
     <style>
         .cid-r4IWN053Sc {
       padding-top: 120px;
@@ -40,8 +41,13 @@
       background-image: url("flower1235.png");
         }
     </style>
+=======
+
+
+
+>>>>>>> 589e0d5896f5f9939176e0cf47a721467e83448c
 </head>
-<body bgcolor="#ededed">
+<body>
 
 <?php
 
@@ -54,6 +60,9 @@ $session = $cluster->connect($keyspace);
 
 ?>
 <section class="menu cid-r4INLFisah" once="menu" id="menu2-6">
+
+
+
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="hamburger">
@@ -67,15 +76,18 @@ $session = $cluster->connect($keyspace);
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.php">
-                        <img src="assets/images/123123123-122x97.png" alt="Mobirise" title="" style="height: 5.0rem;">
+                        <img src="assets/images/123123123-122x97.png" alt="Mobirise" title="" style="height: 5.3rem;">
                     </a>
                 </span>
+
+    
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
 
               </div>
 
             </div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item dropdown open">
                     <a class="nav-link link text-black display-7"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" id="myBtn"></span></a>
@@ -87,19 +99,19 @@ $session = $cluster->connect($keyspace);
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Upload your Meme</h4>
-                            <button type="button" class="close" data-dismiss="modal">x</button>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <form action="" method="post">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre><font face="helvetica">Text your meme</br></br><textarea style="resize:none" name="text" cols="30" rows="3" required></textarea></font></pre>
-                                <pre><font face="helvetica">What is the title?</br></br><input type="text" name="title" cols="30" required></font></pre>
-                                <pre><font face="helvetica">Who are you? </br></br><input type="text" name="author" cols="30" required></font></pre>
-                                <pre><font face="helvetica">Which one do you prefer?</br></br><select id="category" name="category" cols="30" required></font>
-                                    <option value="0" disabled><font face="helvetica">--Select Category--</font></option>
-                                    <option value="1"><font face="helvetica">NSFW</font></option>
-                                    <option value="2"><font face="helvetica">Funny</font></option>
-                                    <option value="3"><font face="helvetica">Random</font></option>
+                                <pre>Text       : <textarea style="resize:none" name="text" cols="42" rows="10"></textarea></pre>
+                                <pre>Title	    : <input type="text" name="title"></pre>
+                                <pre>Author	    : <input type="text" name="author"></pre>
+                                <pre>Category   : <select id="category" name="category">
+                                    <option value="0" disabled>--Select Category--</option>
+                                    <option value="1">NSFW</option>
+                                    <option value="2">Funny</option>
+                                    <option value="3">Random</option>
                                 </select></pre>
                             </div>
                             <div class="modal-footer">
@@ -124,11 +136,12 @@ $session = $cluster->connect($keyspace);
     </nav>
 </section>
 
-<section class="engine"></section><section class="mbr-gallery mbr-slider-carousel cid-r4IWN053Sc" id="gallery5-f">
+<section class="engine"></section><section class="mbr-gallery mbr-slider-carousel cid-r4IWN053Sc" id="gallery3-f">
 
     <div class="container-fluid">
 
         <div class="card-columns">
+
             <?php
             // CREATE
             if(isset($_POST['SubmitButton'])) {
@@ -152,33 +165,18 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                #$statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=?)');
-                #$session->execute($statement, array(
-                #    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'], ($_POST['time']))
-                #));
+                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toUnixTimestamp(now())');
 
-                $statement = $session->prepare('INSERT into meme(id,category, time, likes)
-                  VALUES (?,?,?,?');
 
                 $session->execute($statement, array(
-                    'arguments' => array($_POST['id'], $_POST['category'], ($_POST['time']),$updateLikes)
+                    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'])
                 ));
-
             }
 
             ?>
 
             <?php
             // DELETE
-                if(isset($_POST['Delete']))
-                {
-                    $statement = $session->prepare('Delete from meme Where id=? AND category =? AND time = ?');
-
-
-                    $session->execute($statement, array(
-                        'arguments' => array($_POST['id'], $_POST['category'], ($_POST['time']))
-                    ));
-                }
 
 
             ?>
@@ -197,9 +195,15 @@ PER PARTITION LIMIT 2;" // cql sentence
 
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
+<<<<<<< HEAD
                     //echo "<div class=\"card-header\">".$row['id']."</div>";
                     echo "<div class=\"card-header\">".$row['title']." by ".$row['author'];//."</div>"
                     //echo "<div class=\"card-body\">";
+=======
+                    echo "<div class=\"card-header\">".$row['id']."</div>";
+                    echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
+                    echo "<div class=\"card-body\">";
+>>>>>>> 589e0d5896f5f9939176e0cf47a721467e83448c
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int) substr($row['time'],0,-3);
                         echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
@@ -219,7 +223,12 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
-                        echo"<input type=\"submit\" value=\"".$row['likes']." Likes\" name=\"updateLikes\">";
+                        echo"<input type=\"submit\" value=\"";
+                            echo $row['likes'];
+                        echo " Likes\" name=\"updateLikes\"";
+                        echo "<input type=\"submit\" value=\"";
+                            echo $row['likes'];
+                        echo " Likes\" name=\"Update\">";
                         echo "</form>";
 
                         echo "<form action=\"\" method=\"POST\">";
@@ -258,10 +267,11 @@ PER PARTITION LIMIT 2;" // cql sentence
 <script src="assets/gallery/player.min.js"></script>
 <script src="assets/gallery/script.js"></script>
 <script src="assets/formoid/formoid.min.js"></script>
-</body>
 
-<footer id = ="site-fooder">
-  <div class="footer-copyright text-center py-3">© 2018 Copyright
+
+</body>
+<footer>
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
       <a href="index.php"> 69.com</a>
     </div>
 </footer>
