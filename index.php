@@ -130,7 +130,7 @@ $session = $cluster->connect($keyspace);
 
 
                 $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
-                  VALUES (uuid(), ?,?,?,?,toUnixTimestamp(now()),?)');
+                  VALUES (uuid(), ?,?,?,?,toDate(now()),?)');
 
 
                 $session->execute($statement, array(
@@ -147,7 +147,7 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toUnixTimestamp(now())');
+                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toDate(now())');
 
 
                 $session->execute($statement, array(
@@ -181,8 +181,8 @@ PER PARTITION LIMIT 2;" // cql sentence
                     echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
-                        $timestamp = (int) substr($row['time'],0,-3);
-                        echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
+                        $timestamp = (int)substr($row['time'],-11);
+                        echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
