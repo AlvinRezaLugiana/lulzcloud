@@ -133,7 +133,7 @@ $session = $cluster->connect($keyspace);
                   VALUES (uuid(), ?,?,?,?,toDate(now()),?)');
 
 
-                $session->execute($statement, array(
+                $session->executeAsync($statement, array(
                     'arguments' => array($_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], 0)
                 ));
             }
@@ -141,25 +141,34 @@ $session = $cluster->connect($keyspace);
             ?>
 
             <?php
-            // UPSERT
+            // TODO:UPSERT
 
             if(isset($_POST['updateLikes'])) {
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE CATEGORY=? AND TITLE =? AND ID=? AND TIME = ?');
+                $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
+                  VALUES (?,?,?,?,?,toDate(now()),?)');
 
 
-                $session->execute($statement, array(
-                    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'])
+                $session->executeAsync($statement, array(
+                    'arguments' => array($_POST['id'],$_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], $updateLikes)
+
                 ));
             }
 
             ?>
 
             <?php
-            // DELETE
+            // TODO: DELETE
+            if(isset($_POST['Delete']))
+            {
+                $statement = $session->prepare('');
 
+                $session->executeAsync($statement, array(
+                        'arguments' => array()
+                ));
+            }
 
             ?>
 
@@ -178,7 +187,7 @@ PER PARTITION LIMIT 2;" // cql sentence
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
+                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int)substr($row['time'],-11);
@@ -190,6 +199,9 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['id'];
                         echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['file'];
+                        echo "\" name=\"file\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['category'];
                         echo "\" name=\"category\">";
@@ -205,7 +217,6 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "<input type=\"submit\" value=\"";
                             echo $row['likes'];
                         echo " Likes\" name=\"updateLikes\">";
-
                         echo "</form>";
 
 
