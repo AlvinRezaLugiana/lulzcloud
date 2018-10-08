@@ -196,8 +196,9 @@ PER PARTITION LIMIT 2;" // cql sentence
                     echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
-                        $timestamp = (int) substr($row['time'],0,-3);
-                        echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
+                        $timestamp = (int) substr($row['time'],-11);
+                        echo $timestamp;
+                        echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
