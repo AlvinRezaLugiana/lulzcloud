@@ -25,9 +25,21 @@
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<style>
+        .cid-r4IWN053Sc {
+      padding-top: 120px;
+      padding-bottom: 0px;
+      padding-left: 40%;
+      background-image: url("star1234.png");
+      -webkit-transition-property: background-image;
+      -webkit-transition-duration: 0.3s;
+      -webkit-transition-timing-function: ease-out;
+        }
 
-
-
+        .cid-r4IWN053Sc:hover {
+      background-image: url("flower1235.png");
+        }
+    </style>
 </head>
 <body>
 
@@ -86,15 +98,15 @@ $session = $cluster->connect($keyspace);
                         <form action="" method="post">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre>Text       : <textarea style="resize:none" name="text" cols="42" rows="10"></textarea></pre>
-                                <pre>Title	    : <input type="text" name="title"></pre>
-                                <pre>Author	    : <input type="text" name="author"></pre>
-                                <pre>Category   : <select id="category" name="category">
+                                <pre><font face="helvetica">Text       : <textarea style="resize:none" name="text" cols="42" rows="10" required></textarea></pre>
+                                <pre>Title	    : <input type="text" name="title" required></pre>
+                                <pre>Author	    : <input type="text" name="author" required></pre>
+                                <pre>Category   : <select id="category" name="category" required>
                                     <option value="0" disabled>--Select Category--</option>
                                     <option value="1">NSFW</option>
                                     <option value="2">Funny</option>
                                     <option value="3">Random</option>
-                                </select></pre>
+                                </font></select></pre>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" name="SubmitButton" value="Send some memes boiz">
