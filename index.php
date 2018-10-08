@@ -25,8 +25,7 @@
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-    <style>
+	<style>
         .cid-r4IWN053Sc {
       padding-top: 120px;
       padding-bottom: 0px;
@@ -41,11 +40,6 @@
       background-image: url("flower1235.png");
         }
     </style>
-=======
-
-
-
->>>>>>> 589e0d5896f5f9939176e0cf47a721467e83448c
 </head>
 <body>
 
@@ -104,15 +98,15 @@ $session = $cluster->connect($keyspace);
                         <form action="" method="post">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre>Text       : <textarea style="resize:none" name="text" cols="42" rows="10"></textarea></pre>
-                                <pre>Title	    : <input type="text" name="title"></pre>
-                                <pre>Author	    : <input type="text" name="author"></pre>
-                                <pre>Category   : <select id="category" name="category">
+                                <pre><font face="helvetica">Text       : <textarea style="resize:none" name="text" cols="42" rows="10" required></textarea></pre>
+                                <pre>Title	    : <input type="text" name="title" required></pre>
+                                <pre>Author	    : <input type="text" name="author" required></pre>
+                                <pre>Category   : <select id="category" name="category" required>
                                     <option value="0" disabled>--Select Category--</option>
                                     <option value="1">NSFW</option>
                                     <option value="2">Funny</option>
                                     <option value="3">Random</option>
-                                </select></pre>
+                                </font></select></pre>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" name="SubmitButton" value="Send some memes boiz">
@@ -148,7 +142,7 @@ $session = $cluster->connect($keyspace);
 
 
                 $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
-                  VALUES (uuid(), ?,?,?,?,toUnixTimestamp(now()),?)');
+                  VALUES (uuid(), ?,?,?,?,toDate(now()),?)');
 
 
                 $session->execute($statement, array(
@@ -165,7 +159,7 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toUnixTimestamp(now())');
+                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toDate(now())');
 
 
                 $session->execute($statement, array(
@@ -195,20 +189,14 @@ PER PARTITION LIMIT 2;" // cql sentence
 
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
-<<<<<<< HEAD
-                    //echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author'];//."</div>"
-                    //echo "<div class=\"card-body\">";
-=======
                     echo "<div class=\"card-header\">".$row['id']."</div>";
                     echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
->>>>>>> 589e0d5896f5f9939176e0cf47a721467e83448c
                         echo "<p class=\"card-text\">".$row['file']."</p>";
-                        $timestamp = (int) substr($row['time'],0,-3);
-                        echo "<p class=\"card-text\">Created on : ".date('d-m-Y',$timestamp)."</p>";
-                    //echo "</div>";
-                    //echo "<div class=\"card-footer\">";
+                        $timestamp = (int)substr($row['time'],-11);
+                        echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
+                    echo "</div>";
+                    echo "<div class=\"card-footer\">";
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
@@ -243,11 +231,11 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "\" name=\"category\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
-                        echo"<input type=\"submit\" value=\"Edit\" name=\"Delete\">";
-                    //echo "</div>";
+                    echo "</div>";
                 echo "</div>";
-                echo "</br>";
             }
+
+            
 
             ?>
         </div>
