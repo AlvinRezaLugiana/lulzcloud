@@ -153,18 +153,17 @@ $session = $cluster->connect($keyspace);
             ?>
 
             <?php
-            // TODO:UPSERT
+            // UPDATE
 
             if(isset($_POST['updateLikes'])) {
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
-                  VALUES (?,?,?,?,?,toDate(now()),?)');
+                $statement = $session->prepare('UPDATE meme SET likes = ? WHERE category=? AND title = ? AND id=? AND time=toDate(now())');
 
 
                 $session->executeAsync($statement, array(
-                    'arguments' => array($_POST['id'],$_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], $updateLikes)
+                    'arguments' => array($updateLikes,$_POST['category'], $_POST['title'], new Cassandra\Uuid($_POST['id']))
 
                 ));
             }
@@ -203,7 +202,7 @@ PER PARTITION LIMIT 2;" // cql sentence
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int)substr($row['time'],-11);
-                        echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
+                        echo "<p class=\"card-text\">Created/Updated on : ".date('Y-m-d',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
