@@ -42,21 +42,8 @@
     </style>
 </head>
 <body>
-
-<?php
-
-$cluster = Cassandra::cluster()
-    ->withContactPoints('172.23.99.108') // cassandra address
-    ->withPort(9042)
-    ->build();
-$keyspace = 'cloudcomputing'; // keyspace
-$session = $cluster->connect($keyspace);
-
-?>
+<?php include 'sparkjs.php';?>
 <section class="menu cid-r4INLFisah" once="menu" id="menu2-6">
-
-
-
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="hamburger">
@@ -139,46 +126,25 @@ $session = $cluster->connect($keyspace);
             <?php
             // CREATE
             if(isset($_POST['SubmitButton'])) {
-
-
-                $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
-                  VALUES (uuid(), ?,?,?,?,toDate(now()),?)');
-
-
-                $session->executeAsync($statement, array(
-                    'arguments' => array($_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], 0)
-                ));
+                sparkjs_insert(uuid(), $_POST['title'], $_POST['author'], $_POST['text'], date("Y-m-d"), $_POST['category']);
             }
 
             ?>
 
             <?php
-            // UPDATE
-
+            // TODO:UPSERT
             if(isset($_POST['updateLikes'])) {
-                $currentLike = $_POST['likes'];
-                $updateLikes = $currentLike + 1;
-
-                $statement = $session->prepare('UPDATE meme SET likes = ? WHERE category=? AND title = ? AND id=?');
-
-
-                $session->executeAsync($statement, array(
-                    'arguments' => array($updateLikes,$_POST['category'], $_POST['title'], new Cassandra\Uuid($_POST['id']))
-
-                ));
+                $_POST['likes'] = $_POST['likes'] + 1;
+				sparkjs_update_likes($_POST['id'], $_POST['title'], $_POST['author'], $_POST['file'], $_POST['time'], $_POST['likes'], $_POST['category']);
             }
 
             ?>
 
             <?php
-            // DELETE
+            // TODO: DELETE
             if(isset($_POST['Delete']))
             {
-                $statement = $session->prepare('DELETE FROM meme WHERE category=? AND title = ? AND id=?');
-
-                $session->executeAsync($statement, array(
-                        'arguments' => array($_POST['category'], $_POST['title'],new Cassandra\Uuid($_POST['id']))
-                ));
+                sparkjs_delete($_POST['category'],$_POST['title'],$_POST['id']);
             }
 
             ?>
@@ -187,22 +153,18 @@ $session = $cluster->connect($keyspace);
 
             <?php
             // RETRIEVE
-            $statement = new Cassandra\SimpleStatement(
-                "SELECT * FROM meme
-PER PARTITION LIMIT 2;" // cql sentence
-            );
-            $future = $session->executeAsync($statement); // fully asynchronous and easy parallel execution
-            $result = $future->get(); // wait for the result, with an optional timeout
+			sleep(1);
+            $result = sparkjs_read();
 
-
-            foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+			if(empty($array)){
+				
+				foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
                     echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
-                        $timestamp = (int)substr($row['time'],-11);
-                        echo "<p class=\"card-text\">Created : ".date('Y-m-d',$timestamp)."</p>";
+                        echo "<p class=\"card-text\">Created/Updated on : ".$row["time"]."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
@@ -210,12 +172,24 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['id'];
                         echo "\" name=\"id\">";
+						echo "<input type=\"hidden\" value=\"";
+                            echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['author'];
+                        echo "\" name=\"author\">";
+						echo "<input type=\"hidden\" value=\"";
+                            echo $row['file'];
+                        echo "\" name=\"file\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['category'];
                         echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['title'];
                         echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['time'];
+                        echo "\" name=\"time\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
@@ -226,26 +200,22 @@ PER PARTITION LIMIT 2;" // cql sentence
 
 
                         echo "<form action=\"\" method=\"POST\">";
-                            echo "<input type=\"hidden\" value=\"";
-                            echo $row['id'];
-                            echo "\" name=\"id\">";
-                            echo "<input type=\"hidden\" value=\"";
-                            echo $row['category'];
-                            echo "\" name=\"category\">";
-                            echo "<input type=\"hidden\" value=\"";
-                            echo $row['title'];
-                            echo "\" name=\"title\">";
-                            echo "<input type=\"hidden\" value=\"";
-                            echo $row['likes'];
-                            echo "\" name=\"likes\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
                     echo "</div>";
                 echo "</div>";
             }
-
-            
-
+			
+			}
             ?>
         </div>
     </div>
