@@ -159,7 +159,7 @@ $session = $cluster->connect($keyspace);
                 $currentLike = $_POST['likes'];
                 $updateLikes = $currentLike + 1;
 
-                $statement = $session->prepare('UPDATE meme SET likes = ? WHERE category=? AND title = ? AND id=? AND time=toDate(now())');
+                $statement = $session->prepare('UPDATE meme SET likes = ? WHERE category=? AND title = ? AND id=?');
 
 
                 $session->executeAsync($statement, array(
@@ -171,13 +171,13 @@ $session = $cluster->connect($keyspace);
             ?>
 
             <?php
-            // TODO: DELETE
+            // DELETE
             if(isset($_POST['Delete']))
             {
-                $statement = $session->prepare('');
+                $statement = $session->prepare('DELETE FROM meme WHERE category=? AND title = ? AND id=?');
 
                 $session->executeAsync($statement, array(
-                        'arguments' => array()
+                        'arguments' => array($_POST['category'], $_POST['title'],new Cassandra\Uuid($_POST['id']))
                 ));
             }
 
@@ -202,7 +202,7 @@ PER PARTITION LIMIT 2;" // cql sentence
                     echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int)substr($row['time'],-11);
-                        echo "<p class=\"card-text\">Created/Updated on : ".date('Y-m-d',$timestamp)."</p>";
+                        echo "<p class=\"card-text\">Created : ".date('Y-m-d',$timestamp)."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
@@ -211,17 +211,11 @@ PER PARTITION LIMIT 2;" // cql sentence
                             echo $row['id'];
                         echo "\" name=\"id\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['file'];
-                        echo "\" name=\"file\">";
-                        echo "<input type=\"hidden\" value=\"";
                             echo $row['category'];
                         echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['title'];
                         echo "\" name=\"title\">";
-                        echo "<input type=\"hidden\" value=\"";
-                            echo $row['time'];
-                        echo "\" name=\"time\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
@@ -232,15 +226,18 @@ PER PARTITION LIMIT 2;" // cql sentence
 
 
                         echo "<form action=\"\" method=\"POST\">";
-                        echo "<input type=\"hidden\" value=\"";
-                        echo $row['id'];
-                        echo "\" name=\"id\">";
-                        echo "<input type=\"hidden\" value=\"";
-                        echo $row['time'];
-                        echo "\" name=\"time\">";
-                        echo "<input type=\"hidden\" value=\"";
-                        echo $row['category'];
-                        echo "\" name=\"category\">";
+                            echo "<input type=\"hidden\" value=\"";
+                            echo $row['id'];
+                            echo "\" name=\"id\">";
+                            echo "<input type=\"hidden\" value=\"";
+                            echo $row['category'];
+                            echo "\" name=\"category\">";
+                            echo "<input type=\"hidden\" value=\"";
+                            echo $row['title'];
+                            echo "\" name=\"title\">";
+                            echo "<input type=\"hidden\" value=\"";
+                            echo $row['likes'];
+                            echo "\" name=\"likes\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
                     echo "</div>";
