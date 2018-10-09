@@ -82,10 +82,10 @@
                             <h4 class="modal-title">Upload your Meme</h4>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre><font face="helvetica">Text       : <textarea style="resize:none" name="text" cols="42" rows="10" required></textarea></pre>
+                                <pre><input type="file" name="image"></pre>
                                 <pre>Title	    : <input type="text" name="title" required></pre>
                                 <pre>Author	    : <input type="text" name="author" required></pre>
                                 <pre>Category   : <select id="category" name="category" required>
@@ -126,7 +126,25 @@
             <?php
             // CREATE
             if(isset($_POST['SubmitButton'])) {
-                sparkjs_insert(uuid(), $_POST['title'], $_POST['author'], $_POST['text'], date("Y-m-d"), $_POST['category']);
+                //Upload image
+				$uuid = uuid();
+				$name = $_FILES["image"]["name"];
+				$ext = strtolower(pathinfo(($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+				$img_type = array("jpg","png","jpeg");
+				$error = 0;
+				
+				if(in_array($ext,$img_type)){
+					$target = "uploads/".$uuid.".".$ext;
+					move_uploaded_file($_FILES["image"]["tmp_name"],$target);
+				} else {
+					echo "<script>alert('Invalid image type');</script>";
+					$error = 1;
+				}
+				
+				//Insert Into Cassandra
+				if($error == 0){
+					sparkjs_insert($uuid, $_POST['title'], $_POST['author'], $target, date("Y-m-d"), $_POST['category']);
+				}
             }
 
             ?>
@@ -145,6 +163,7 @@
             if(isset($_POST['Delete']))
             {
                 sparkjs_delete($_POST['category'],$_POST['title'],$_POST['id']);
+				unlink($_POST["file"]);
             }
 
             ?>
@@ -163,8 +182,8 @@
                     echo "<div class=\"card-header\">".$row['id']."</div>";
                     echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
-                        echo "<p class=\"card-text\">".$row['file']."</p>";
-                        echo "<p class=\"card-text\">Created/Updated on : ".$row["time"]."</p>";
+                        echo "<img src=\"".$row['file']."\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : ".$row["time"]."</p>";
                     echo "</div>";
                     echo "<div class=\"card-footer\">";
 
@@ -209,6 +228,9 @@
                         echo "<input type=\"hidden\" value=\"";
                         echo $row['category'];
                         echo "\" name=\"category\">";
+						echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
                     echo "</div>";

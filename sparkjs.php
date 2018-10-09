@@ -90,9 +90,39 @@ function uuid(){
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
+function sparkjs_avglikes (){
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes");
+	curl_setopt($curl, CURLOPT_POST, 1);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = GO');
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	$output = curl_exec($curl);
+	curl_close($curl);
+	$output = json_decode($output);
+	$job_id = $output->{'result'}->{'jobId'};
+	sleep(1);
+	
+	while (true){
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs/".$job_id);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$output = curl_exec($curl);
+		curl_close($curl);
+		$output = json_decode($output);
+		if ($output->{'duration'} != "Job not done yet"){
+			break;
+		}
+		sleep(1);
+	}
+	$result = $output->{'result'};
+	$result = number_format($result, 2);
+	return $result;
+}
+
 //Example Usage
 //sparkjs_insert("c9f3c9f2-bacf-476b-b959-3e69a674d2d5", "A Master Piece", "Bean", "aws", "2018-12-28", "Doodle");
 //sparkjs_update_likes("c9f3c9f2-bacf-476b-b959-3e69a674d2d5", "A Master Piece", "Bean", "aws", "2018-12-28", "3", "Doodle");
 //sparkjs_delete("Doodle","A Master Piece","c9f3c9f2-bacf-476b-b959-3e69a674d2d5");
 //sparkjs_read();
+//sparkjs_avglikes();
 ?> 
