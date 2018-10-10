@@ -42,21 +42,8 @@
     </style>
 </head>
 <body>
-
-<?php
-
-$cluster = Cassandra::cluster()
-    ->withContactPoints('172.23.99.108') // cassandra address
-    ->withPort(9042)
-    ->build();
-$keyspace = 'cloudcomputing'; // keyspace
-$session = $cluster->connect($keyspace);
-
-?>
+<?php include 'sparkjs.php';?>
 <section class="menu cid-r4INLFisah" once="menu" id="menu2-6">
-
-
-
     <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="hamburger">
@@ -70,7 +57,7 @@ $session = $cluster->connect($keyspace);
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.php">
-                        <img src="assets/images/123123123-122x97.png" alt="Mobirise" title="" style="height: 5.3rem;">
+                        <img src="assets/images/123123123-122x97.png" title="" style="height: 5.3rem;">
                     </a>
                 </span>
 
@@ -95,10 +82,10 @@ $session = $cluster->connect($keyspace);
                             <h4 class="modal-title">Upload your Meme</h4>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre><font face="helvetica">Text       : <textarea style="resize:none" name="text" cols="42" rows="10" required></textarea></pre>
+                                <pre><input type="file" name="image"></pre>
                                 <pre>Title	    : <input type="text" name="title" required></pre>
                                 <pre>Author	    : <input type="text" name="author" required></pre>
                                 <pre>Category   : <select id="category" name="category" required>
@@ -139,39 +126,45 @@ $session = $cluster->connect($keyspace);
             <?php
             // CREATE
             if(isset($_POST['SubmitButton'])) {
-
-
-                $statement = $session->prepare('INSERT into meme(id, file, title, author, category, time, likes)
-                  VALUES (uuid(), ?,?,?,?,toDate(now()),?)');
-
-
-                $session->execute($statement, array(
-                    'arguments' => array($_POST['text'], $_POST['title'], $_POST['author'], $_POST['category'], 0)
-                ));
+                //Upload image
+				$uuid = uuid();
+				$name = $_FILES["image"]["name"];
+				$ext = strtolower(pathinfo(($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+				$img_type = array("jpg","png","jpeg");
+				$error = 0;
+				
+				if(in_array($ext,$img_type)){
+					$target = "uploads/".$uuid.".".$ext;
+					move_uploaded_file($_FILES["image"]["tmp_name"],$target);
+				} else {
+					echo "<script>alert('Invalid image type');</script>";
+					$error = 1;
+				}
+				
+				//Insert Into Cassandra
+				if($error == 0){
+					sparkjs_insert($uuid, $_POST['title'], $_POST['author'], $target, date("Y-m-d"), $_POST['category']);
+				}
             }
 
             ?>
 
             <?php
-            // UPSERT
-
+            // TODO:UPSERT
             if(isset($_POST['updateLikes'])) {
-                $currentLike = $_POST['likes'];
-                $updateLikes = $currentLike + 1;
-
-                $statement = $session->prepare('UPDATE meme SET likes =? WHERE id=? AND category=? AND time=toDate(now())');
-
-
-                $session->execute($statement, array(
-                    'arguments' => array($updateLikes,$_POST['id'], $_POST['category'])
-                ));
+                $_POST['likes'] = $_POST['likes'] + 1;
+				sparkjs_update_likes($_POST['id'], $_POST['title'], $_POST['author'], $_POST['file'], $_POST['time'], $_POST['likes'], $_POST['category']);
             }
 
             ?>
 
             <?php
-            // DELETE
-
+            // TODO: DELETE
+            if(isset($_POST['Delete']))
+            {
+                sparkjs_delete($_POST['category'],$_POST['title'],$_POST['id']);
+				unlink($_POST["file"]);
+            }
 
             ?>
 
@@ -179,65 +172,73 @@ $session = $cluster->connect($keyspace);
 
             <?php
             // RETRIEVE
-            $statement = new Cassandra\SimpleStatement(
-                "SELECT * FROM meme
-PER PARTITION LIMIT 2;" // cql sentence
-            );
-            $future = $session->executeAsync($statement); // fully asynchronous and easy parallel execution
-            $result = $future->get(); // wait for the result, with an optional timeout
+			sleep(1);
+            $result = sparkjs_read();
 
-
-            foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+			if(empty($array)){
+				
+				foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']."by".$row['author'];//."</div>";
-                    //echo "<div class=\"card-body\">";
-                        echo "<p class=\"card-text\">".$row['file']."</p>";
-                        $timestamp = (int)substr($row['time'],-11);
-                        echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
-                    //echo "</div>";
-                    //echo "<div class=\"card-footer\">";
+                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
+                    echo "<div class=\"card-body\">";
+                        echo "<img src=\"".$row['file']."\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : ".$row["time"]."</p>";
+                    echo "</div>";
+                    echo "<div class=\"card-footer\">";
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['id'];
                         echo "\" name=\"id\">";
-                        echo "<input type=\"hidden\" value=\"";
+						echo "<input type=\"hidden\" value=\"";
                             echo $row['time'];
                         echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['author'];
+                        echo "\" name=\"author\">";
+						echo "<input type=\"hidden\" value=\"";
+                            echo $row['file'];
+                        echo "\" name=\"file\">";
                         echo "<input type=\"hidden\" value=\"";
                             echo $row['category'];
                         echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
+                            echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                            echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
                             echo $row['likes'];
                         echo "\" name=\"likes\">";
-                        echo"<input type=\"submit\" value=\"";
-                            echo $row['likes'];
-                        echo " Likes\" name=\"updateLikes\"";
                         echo "<input type=\"submit\" value=\"";
                             echo $row['likes'];
-                        echo " Likes\" name=\"Update\">";
+                        echo " Likes\" name=\"updateLikes\">";
                         echo "</form>";
+
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
                         echo $row['id'];
                         echo "\" name=\"id\">";
                         echo "<input type=\"hidden\" value=\"";
-                        echo $row['time'];
-                        echo "\" name=\"time\">";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
                         echo "<input type=\"hidden\" value=\"";
                         echo $row['category'];
                         echo "\" name=\"category\">";
+						echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
                     //echo "</div>";
                 echo "</div>";
                 echo "</br>";
             }
-
-            
-
+			
+			}
             ?>
         </div>
     </div>
