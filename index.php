@@ -79,16 +79,16 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Upload your Meme</h4>
+                            <h3 class="modal-title">Upload your Meme</h4>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <!--<input type="file" name="fileToUpload" id="fileToUpload"></br></br>-->
-                                <pre><input type="file" name="image"></pre>
-                                <pre>Title	    : <input type="text" name="title" required></pre>
-                                <pre>Author	    : <input type="text" name="author" required></pre>
-                                <pre>Category   : <select id="category" name="category" required>
+                                <pre style="text-align:justify font-family:helvetica;"><input type="file" name="image"></pre>
+                                <pre style="text-align:justify font-family:verdana;">Title	    : <input type="text" name="title" required></pre>
+                                <pre style="text-align:justify font-family:verdana;">Author	    : <input type="text" name="author" required></pre>
+                                <pre style="text-align:justify font-family:verdana;">Category    : <select id="category" name="category" required>
                                     <option value="0" disabled>--Select Category--</option>
                                     <option value="1">NSFW</option>
                                     <option value="2">Funny</option>
@@ -179,12 +179,12 @@
 				
 				foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
-                    echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
+                    //echo "<div class=\"card-header\">".$row['id']."</div>";
+                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author'];//."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<img src=\"".$row['file']."\" height=\"160\" width=\"160\">";
                         echo "<p class=\"card-text\">Created on : ".$row["time"]."</p>";
-                    echo "</div>";
+                    //echo "</div>";
                     echo "<div class=\"card-footer\">";
 
                         echo "<form action=\"\" method=\"POST\">";
@@ -260,10 +260,36 @@
 
 
 </body>
-<footer>
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+<!-- Footer -->
+<footer class="page-footer font-small unique-color-dark pt-4">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+      <!-- Call to action -->
+      <ul class="list-unstyled list-inline text-center py-2">
+        <li class="list-inline-item">
+          <h5 class="mb-1">Average Likes</h5>
+        </li>
+        <li class="list-inline-item">
+			<?php
+				$avg_likes = sparkjs_avglikes();
+				echo $avg_likes;
+				echo phpversion();
+			?>
+        </li>
+      </ul>
+      <!-- Call to action -->
+
+    </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
       <a href="index.php"> 69.com</a>
     </div>
-</footer>
+    <!-- Copyright -->
 
+  </footer>
+  <!-- Footer -->
 </html>
