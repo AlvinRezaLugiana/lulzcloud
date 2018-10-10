@@ -190,13 +190,13 @@ PER PARTITION LIMIT 2;" // cql sentence
             foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']."by".$row['author']."</div>";
-                    echo "<div class=\"card-body\">";
+                    echo "<div class=\"card-header\">".$row['title']."by".$row['author'];//."</div>";
+                    //echo "<div class=\"card-body\">";
                         echo "<p class=\"card-text\">".$row['file']."</p>";
                         $timestamp = (int)substr($row['time'],-11);
                         echo "<p class=\"card-text\">Created on : ".date('Y-m-d',$timestamp)."</p>";
-                    echo "</div>";
-                    echo "<div class=\"card-footer\">";
+                    //echo "</div>";
+                    //echo "<div class=\"card-footer\">";
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
@@ -231,8 +231,9 @@ PER PARTITION LIMIT 2;" // cql sentence
                         echo "\" name=\"category\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
-                    echo "</div>";
+                    //echo "</div>";
                 echo "</div>";
+                echo "</br>";
             }
 
             
