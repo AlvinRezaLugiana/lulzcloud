@@ -117,29 +117,3 @@ triton instance disable-firewall phpcass
 
 
 
-## Web Application UML
-
-
-```mermaid
-sequenceDiagram
-Web Application->> Spark Job Server: Create()
-Spark Job Server ->> Cassandra: Create()
-Cassandra -->> Spark Job Server: Create()
-Spark Job Server -->> Web Application: Create Done
-
-Web Application->> Spark Job Server: Retrieve()
-Spark Job Server ->> Cassandra: Retrieve()
-Cassandra -->> Spark Job Server: Retrieve()
-Spark Job Server -->> Web Application: Retrival Done
-
-Web Application->> Spark Job Server: Update()
-Spark Job Server ->> Cassandra: Update()
-Cassandra -->> Spark Job Server: Update()
-Spark Job Server -->> Web Application: Update Done
-
-Web Application->> Spark Job Server: Delete()
-Spark Job Server ->> Cassandra: Delete()
-Cassandra -->> Spark Job Server: Delete()
-Spark Job Server -->> Web Application: Delete Done
-
-```
