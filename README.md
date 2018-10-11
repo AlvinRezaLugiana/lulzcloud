@@ -7,10 +7,27 @@ A Project by:
 - You Chen
 
 
-  * [LULZCLOUD](#LULZCLOUD)
+* [LULZCLOUD](#LULZCLOUD)
     * [Setting Up Cassandra](#setting-up-cassandra)
-    * [Setup and Create Enviornment](#setup-and-create-environment)
-
+        * [Setup and Create Enviornment](#setup-and-create-environment)
+        * [Pull Cassandra Image Into Docker](#pull-cassandra-image-into-docker)
+        * [Run Cass1](#run-cass1)
+        * [Turn off Cass 1 Firewall](#turn-off-cass-1-firewall)
+        * [Retrieve Cass 1 IP Address](#retrieve-cass-1-ip-address)
+        * [Run Cass2](#run-cass2)
+        * [Turn off Cass2 Firewall](#turn-off-cass-2-firewall)
+        * [Retrieve Cass 2 IP Address](#retrieve-cass-2-ip-address)
+        * [CQLSH](##cqlsh)
+        * [Check Clusters](#check-clusters)
+        * [Create Keyspace](#create-keyspace)
+        * [Create tables](#create-tables)
+        * [Exit CQLSH](#exit-cqlsh)
+    * [PHPCass (If without Spark Job Server and directly called from Cassandra)](#phpcass-if-without-spark-job-server-and-directly-called-from-cassandra)
+        * [Pull PHPCass Image to Docker](#pull-cassandra-image-into-docker)
+        * [Run PHPCass](#run-phpcass)
+        * [Disabled PHPCass firewall](#disabled-phpcass-firewall)
+        * [Enter PHPCass Shell](#enter-phpcass-shell)
+    
 
 ## Setting up Cassandra
 ### Setup and Create Environment
@@ -54,7 +71,7 @@ docker run -d --network zones --name cass2 cassandra:3.11.1
 triton instance disable-firewall cass2
 ```
 
-### Retrieve Cass 1 IP Address
+### Retrieve Cass 2 IP Address
 ```bash
 seed1=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' cass2) 
 ```
