@@ -1,0 +1,89 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\crud_2.10-1.0.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator12$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator12$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\ReadDB$$anonfun$validate$4.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\ReadDB$$anonfun$validate$4.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator17$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator17$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$anonfun$validate$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$anonfun$validate$3.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator2$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator2$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$anonfun$validate$12.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$anonfun$validate$12.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\ReadDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\ReadDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator14$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator14$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$anonfun$validate$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$anonfun$validate$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\DeleteDB$$anonfun$validate$7.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\DeleteDB$$anonfun$validate$7.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator3$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator3$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes$$anonfun$validate$14.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes$$anonfun$validate$14.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\DeleteDB$$anonfun$validate$9.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\DeleteDB$$anonfun$validate$9.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator4$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator4$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes$$anonfun$validate$13.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes$$anonfun$validate$13.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator6$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator1$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator1$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\ReadDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\ReadDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$anonfun$validate$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$anonfun$validate$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\DeleteDB$$anonfun$validate$8.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\DeleteDB$$anonfun$validate$8.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator15$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator15$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$anonfun$validate$11.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$anonfun$validate$11.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\ReadDB$$anonfun$validate$6.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\ReadDB$$anonfun$validate$6.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes$$anonfun$validate$15.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes$$anonfun$validate$15.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator7$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator7$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator13$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator13$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator10$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator10$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$anonfun$validate$10.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$anonfun$validate$10.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\DeleteDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\DeleteDB.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\DeleteDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\DeleteDB$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator16$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator16$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\UpdateDB$$typecreator11$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\UpdateDB$$typecreator11$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\AvgLikes$$anonfun$runJob$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\AvgLikes$$anonfun$runJob$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\CreateDB$$typecreator5$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\CreateDB$$typecreator5$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	spark\jobserver\ReadDB$$anonfun$validate$5.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\ME\Desktop\CRUD Package\target\scala-2.10\classes\spark\jobserver\ReadDB$$anonfun$validate$5.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m
