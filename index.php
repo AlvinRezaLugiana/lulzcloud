@@ -30,7 +30,7 @@
         .cid-r4IWN053Sc {
       padding-top: 120px;
       padding-bottom: 0px;
-      padding-left: 20%;
+      padding-left: 5%;
       background-image: url("star1234.png");
       -webkit-transition-property: background-image;
       -webkit-transition-duration: 0.3s;
