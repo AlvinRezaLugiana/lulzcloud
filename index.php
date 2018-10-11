@@ -29,7 +29,7 @@
         .cid-r4IWN053Sc {
       padding-top: 120px;
       padding-bottom: 0px;
-      padding-left: 40%;
+      padding-left: 20%;
       background-image: url("star1234.png");
       -webkit-transition-property: background-image;
       -webkit-transition-duration: 0.3s;
@@ -180,7 +180,7 @@
 				foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                 echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
                     //echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author'];//."</div>";
+                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
                     echo "<div class=\"card-body\">";
                         echo "<img src=\"".$row['file']."\" height=\"160\" width=\"160\">";
                         echo "<p class=\"card-text\">Created on : ".$row["time"]."</p>";
@@ -233,8 +233,9 @@
                         echo "\" name=\"file\">";
                         echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
-                    //echo "</div>";
+                    echo "</div>";
                 echo "</div>";
+				echo "</div>";
                 echo "</br>";
             }
 			
@@ -269,13 +270,12 @@
       <!-- Call to action -->
       <ul class="list-unstyled list-inline text-center py-2">
         <li class="list-inline-item">
-          <h5 class="mb-1">Average Likes</h5>
+          <h5 class="mb-1">Average Likes :</h5>
         </li>
         <li class="list-inline-item">
 			<?php
 				$avg_likes = sparkjs_avglikes();
-				echo $avg_likes;
-				echo phpversion();
+				echo number_format($avg_likes);
 			?>
         </li>
       </ul>
