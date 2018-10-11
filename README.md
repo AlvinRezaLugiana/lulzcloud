@@ -8,7 +8,7 @@ A Project by:
 
  TABLE OF CONTENT
 =======================================================================
-* [LULZCLOUD](#LULZCLOUD)
+* [LULZCLOUD](#lulzcloud)
     * [Setting Up Cassandra](#setting-up-cassandra)
         * [Setup and Create Enviornment](#setup-and-create-environment)
         * [Pull Cassandra Image Into Docker](#pull-cassandra-image-into-docker)
