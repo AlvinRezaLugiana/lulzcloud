@@ -150,7 +150,7 @@
             ?>
 
             <?php
-            // TODO:UPSERT
+            // UPSERT
             if(isset($_POST['updateLikes'])) {
                 $_POST['likes'] = $_POST['likes'] + 1;
 				sparkjs_update_likes($_POST['id'], $_POST['title'], $_POST['author'], $_POST['file'], $_POST['time'], $_POST['likes'], $_POST['category']);
@@ -159,7 +159,7 @@
             ?>
 
             <?php
-            // TODO: DELETE
+            // DELETE
             if(isset($_POST['Delete']))
             {
                 sparkjs_delete($_POST['category'],$_POST['title'],$_POST['id']);
