@@ -19,7 +19,7 @@ function sparkjs_update_likes($id, $title, $author, $file, $time, $likes, $categ
 	curl_close($curl);
 }
 
-function sparkjs_read($amount="all"){
+function sparkjs_read($amount){
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.ReadDB&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
@@ -38,6 +38,11 @@ function sparkjs_read($amount="all"){
 		return $result;
 	}
 }
+
+
+
+
+
 
 function clean_result($r_array){
 	$helper_array = array("category", "title", "id", "author", "file", "likes", "time");

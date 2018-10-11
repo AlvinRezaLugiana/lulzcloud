@@ -184,8 +184,7 @@
 
                 //NSFW Category
                 sleep(1);
-                // TODO: NSFW Category
-                $result = sparkjs_read();
+                $result = sparkjs_read('nsfw');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
@@ -255,8 +254,7 @@
             {
                 // Random Category
                 sleep(1);
-                // TODO: Random Category
-                $result = sparkjs_read();
+                $result = sparkjs_read('random');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
@@ -326,8 +324,7 @@
             {
                 // Funny Category
                 sleep(1);
-                //TODO: Funny Category
-                $result = sparkjs_read();
+                $result = sparkjs_read('funny');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
@@ -397,7 +394,7 @@
             {
                 // All and everything else
                 sleep(1);
-                $result = sparkjs_read();
+                $result = sparkjs_read('all');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
