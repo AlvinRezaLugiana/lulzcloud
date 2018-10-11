@@ -79,7 +79,7 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title">Upload your Meme</h4>
+                            <h3 class="modal-title">Upload your Meme</h3>
                             <button type="button" class="close" data-dismiss="modal">×</button>
                         </div>
                         <form action="" method="post" enctype="multipart/form-data">
