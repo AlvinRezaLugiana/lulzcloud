@@ -65,11 +65,12 @@
     
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
-				<button class="btn btn-primary" type="submit">Button</button>
-				<input class="btn btn-primary" type="button" value="Input">
-				<input class="btn btn-primary" type="submit" value="Submit">
-				<input class="btn btn-primary" type="reset" value="Reset">
-
+				<form action ="" method="post">
+                    <input class="btn btn-primary" name="allcat" type="submit" value = "All"</input>
+                    <input class="btn btn-primary" name="nsfwcat "type="submit" value="NSFW"</input>
+                    <input class="btn btn-primary" name="rancat" type="submit" value="Random"</input>
+                    <input class="btn btn-primary" name="funnycat" type="submit" value="Funny"</input>
+                </form>
               </div>
 
             </div>
@@ -176,49 +177,53 @@
 
 
             <?php
-            // RETRIEVE
-			sleep(1);
-            $result = sparkjs_read();
+            // RETRIEVE all catagory
 
-			if(empty($array)){
-				
-				foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
-                echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
-                    //echo "<div class=\"card-header\">".$row['id']."</div>";
-                    echo "<div class=\"card-header\">".$row['title']." by ".$row['author']."</div>";
-                    echo "<div class=\"card-body\">";
-                        echo "<img src=\"".$row['file']."\" height=\"160\" width=\"160\">";
-                        echo "<p class=\"card-text\">Created on : ".$row["time"]."</p>";
-                    //echo "</div>";
-                    echo "<div class=\"card-footer\">";
+            if(isset($_POST['nsfwcat']))
+            {
+
+                //NSFW Category
+                sleep(1);
+                // TODO: NSFW Category
+                $result = sparkjs_read();
+                if (empty($array)) {
+                    foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+                        echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
+                        //echo "<div class=\"card-header\">".$row['id']."</div>";
+                        echo "<div class=\"card-header\">" . $row['title'] . " by " . $row['author'] . "</div>";
+                        echo "<div class=\"card-body\">";
+                        echo "<img src=\"" . $row['file'] . "\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : " . $row["time"] . "</p>";
+                        //echo "</div>";
+                        echo "<div class=\"card-footer\">";
 
                         echo "<form action=\"\" method=\"POST\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['id'];
+                        echo $row['id'];
                         echo "\" name=\"id\">";
-						echo "<input type=\"hidden\" value=\"";
-                            echo $row['time'];
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
                         echo "\" name=\"time\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['author'];
+                        echo $row['author'];
                         echo "\" name=\"author\">";
-						echo "<input type=\"hidden\" value=\"";
-                            echo $row['file'];
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
                         echo "\" name=\"file\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['category'];
+                        echo $row['category'];
                         echo "\" name=\"category\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['title'];
+                        echo $row['title'];
                         echo "\" name=\"title\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['time'];
+                        echo $row['time'];
                         echo "\" name=\"time\">";
                         echo "<input type=\"hidden\" value=\"";
-                            echo $row['likes'];
+                        echo $row['likes'];
                         echo "\" name=\"likes\">";
                         echo "<input type=\"submit\" value=\"";
-                            echo $row['likes'];
+                        echo $row['likes'];
                         echo " Likes\" name=\"updateLikes\">";
                         echo "</form>";
 
@@ -233,18 +238,231 @@
                         echo "<input type=\"hidden\" value=\"";
                         echo $row['category'];
                         echo "\" name=\"category\">";
-						echo "<input type=\"hidden\" value=\"";
+                        echo "<input type=\"hidden\" value=\"";
                         echo $row['file'];
                         echo "\" name=\"file\">";
-                        echo"<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
+                        echo "<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
                         echo "</form>";
-                    echo "</div>";
-                echo "</div>";
-				echo "</div>";
-                echo "</br>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</br>";
+                    }
+
+                }
             }
-			
-			}
+            else if(isset($_POST['rancat']))
+            {
+                // Random Category
+                sleep(1);
+                // TODO: Random Category
+                $result = sparkjs_read();
+                if (empty($array)) {
+                    foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+                        echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
+                        //echo "<div class=\"card-header\">".$row['id']."</div>";
+                        echo "<div class=\"card-header\">" . $row['title'] . " by " . $row['author'] . "</div>";
+                        echo "<div class=\"card-body\">";
+                        echo "<img src=\"" . $row['file'] . "\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : " . $row["time"] . "</p>";
+                        //echo "</div>";
+                        echo "<div class=\"card-footer\">";
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['author'];
+                        echo "\" name=\"author\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['likes'];
+                        echo "\" name=\"likes\">";
+                        echo "<input type=\"submit\" value=\"";
+                        echo $row['likes'];
+                        echo " Likes\" name=\"updateLikes\">";
+                        echo "</form>";
+
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
+                        echo "</form>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</br>";
+                    }
+
+                }
+            }
+            else if(isset($_POST['funcat']))
+            {
+                // Funny Category
+                sleep(1);
+                //TODO: Funny Category
+                $result = sparkjs_read();
+                if (empty($array)) {
+                    foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+                        echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
+                        //echo "<div class=\"card-header\">".$row['id']."</div>";
+                        echo "<div class=\"card-header\">" . $row['title'] . " by " . $row['author'] . "</div>";
+                        echo "<div class=\"card-body\">";
+                        echo "<img src=\"" . $row['file'] . "\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : " . $row["time"] . "</p>";
+                        //echo "</div>";
+                        echo "<div class=\"card-footer\">";
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['author'];
+                        echo "\" name=\"author\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['likes'];
+                        echo "\" name=\"likes\">";
+                        echo "<input type=\"submit\" value=\"";
+                        echo $row['likes'];
+                        echo " Likes\" name=\"updateLikes\">";
+                        echo "</form>";
+
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
+                        echo "</form>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</br>";
+                    }
+
+                }
+            }
+            else
+            {
+                // All and everything else
+                sleep(1);
+                $result = sparkjs_read();
+                if (empty($array)) {
+                    foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
+                        echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
+                        //echo "<div class=\"card-header\">".$row['id']."</div>";
+                        echo "<div class=\"card-header\">" . $row['title'] . " by " . $row['author'] . "</div>";
+                        echo "<div class=\"card-body\">";
+                        echo "<img src=\"" . $row['file'] . "\" height=\"160\" width=\"160\">";
+                        echo "<p class=\"card-text\">Created on : " . $row["time"] . "</p>";
+                        //echo "</div>";
+                        echo "<div class=\"card-footer\">";
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['author'];
+                        echo "\" name=\"author\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['time'];
+                        echo "\" name=\"time\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['likes'];
+                        echo "\" name=\"likes\">";
+                        echo "<input type=\"submit\" value=\"";
+                        echo $row['likes'];
+                        echo " Likes\" name=\"updateLikes\">";
+                        echo "</form>";
+
+
+                        echo "<form action=\"\" method=\"POST\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['id'];
+                        echo "\" name=\"id\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['title'];
+                        echo "\" name=\"title\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['category'];
+                        echo "\" name=\"category\">";
+                        echo "<input type=\"hidden\" value=\"";
+                        echo $row['file'];
+                        echo "\" name=\"file\">";
+                        echo "<input type=\"submit\" value=\"Delete\" name=\"Delete\">";
+                        echo "</form>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</br>";
+                    }
+
+                }
+            }
             ?>
         </div>
     </div>
