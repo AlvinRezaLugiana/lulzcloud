@@ -25,6 +25,7 @@
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	
 	<style>
         .cid-r4IWN053Sc {
       padding-top: 120px;
@@ -64,6 +65,20 @@
     
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				  <label class="btn btn-secondary active">
+					<input type="radio" name="options" id="option1" autocomplete="off" checked> All
+				  </label>
+				  <label class="btn btn-secondary">
+					<input type="radio" name="options" id="option2" autocomplete="off"> NSFW
+				  </label>
+				  <label class="btn btn-secondary">
+					<input type="radio" name="options" id="option3" autocomplete="off"> Random
+				  </label>
+				  <label class="btn btn-secondary">
+					<input type="radio" name="options" id="option3" autocomplete="off"> Funny
+				  </label>
+				</div>
 
               </div>
 
