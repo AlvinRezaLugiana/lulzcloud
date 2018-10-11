@@ -1,7 +1,7 @@
 <?php
 function sparkjs_insert($id, $title, $author, $file, $time, $category){
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.CreateDB");
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.CreateDB&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = '.$id.'","'.$title.'","'.$author.'","'.$file.'","'.$time.'","'.$category);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -11,7 +11,7 @@ function sparkjs_insert($id, $title, $author, $file, $time, $category){
 
 function sparkjs_update_likes($id, $title, $author, $file, $time, $likes, $category){
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.UpdateDB");
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.UpdateDB&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = '.$id.'","'.$title.'","'.$author.'","'.$file.'","'.$time.'","'.$likes.'","'.$category);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -21,28 +21,14 @@ function sparkjs_update_likes($id, $title, $author, $file, $time, $likes, $categ
 
 function sparkjs_read($amount="all"){
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.ReadDB");
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.ReadDB&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = '.$amount);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 	$output = curl_exec($curl);
 	curl_close($curl);
 	$output = json_decode($output);
-	$job_id = $output->{'result'}->{'jobId'};
-	sleep(1);
-	
-	while (true){
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs/".$job_id);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		$output = curl_exec($curl);
-		curl_close($curl);
-		$output = json_decode($output);
-		if ($output->{'duration'} != "Job not done yet"){
-			break;
-		}
-		sleep(1);
-	}
+
 	$result = $output->{'result'};
 	if ($result == "()"){
 		$result = array();
@@ -74,7 +60,7 @@ function clean_result($r_array){
 
 function sparkjs_delete($category, $title, $id){
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.DeleteDB");
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.DeleteDB&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = '.$category.'","'.$title.'","'.$id);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -92,28 +78,13 @@ function uuid(){
 
 function sparkjs_avglikes (){
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes");
+	curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true");
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'data.input = GO');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 	$output = curl_exec($curl);
 	curl_close($curl);
 	$output = json_decode($output);
-	$job_id = $output->{'result'}->{'jobId'};
-	sleep(1);
-	
-	while (true){
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, "http://s4514040.uqcloud.net/jobs/".$job_id);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		$output = curl_exec($curl);
-		curl_close($curl);
-		$output = json_decode($output);
-		if ($output->{'duration'} != "Job not done yet"){
-			break;
-		}
-		sleep(1);
-	}
 	$result = $output->{'result'};
 	$result = number_format($result, 2);
 	return $result;
