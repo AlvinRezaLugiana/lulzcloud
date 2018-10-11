@@ -7,6 +7,11 @@ A Project by:
 - You Chen
 
 
+  * [LULZCLOUD](#LULZCLOUD)
+    * [Setting Up Cassandra](#setting-up-cassandra)
+    * [Setup and Create Enviornment](#setup-and-create-environment)
+
+
 ## Setting up Cassandra
 ### Setup and Create Environment
 ```bash
