@@ -39,11 +39,6 @@ function sparkjs_read($amount){
 	}
 }
 
-
-
-
-
-
 function clean_result($r_array){
 	$helper_array = array("category", "title", "id", "author", "file", "likes", "time");
 	$result = array();
@@ -99,6 +94,6 @@ function sparkjs_avglikes (){
 //sparkjs_insert("c9f3c9f2-bacf-476b-b959-3e69a674d2d5", "A Master Piece", "Bean", "aws", "2018-12-28", "Doodle");
 //sparkjs_update_likes("c9f3c9f2-bacf-476b-b959-3e69a674d2d5", "A Master Piece", "Bean", "aws", "2018-12-28", "3", "Doodle");
 //sparkjs_delete("Doodle","A Master Piece","c9f3c9f2-bacf-476b-b959-3e69a674d2d5");
-//sparkjs_read();
+//sparkjs_read("all");
 //sparkjs_avglikes();
 ?> 
