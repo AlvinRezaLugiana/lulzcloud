@@ -6,7 +6,8 @@ A Project by:
 - Sze Yan, 
 - You Chen
 
-
+ TABLE OF CONTENT
+=======================================================================
 * [LULZCLOUD](#LULZCLOUD)
     * [Setting Up Cassandra](#setting-up-cassandra)
         * [Setup and Create Enviornment](#setup-and-create-environment)
