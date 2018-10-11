@@ -65,20 +65,10 @@
     
 
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">.com</a></span>
-				<div class="btn-group btn-group-toggle" data-toggle="buttons">
-				  <label class="btn btn-secondary active">
-					<input type="radio" name="options" id="option1" autocomplete="off" checked> All
-				  </label>
-				  <label class="btn btn-secondary">
-					<input type="radio" name="options" id="option2" autocomplete="off"> NSFW
-				  </label>
-				  <label class="btn btn-secondary">
-					<input type="radio" name="options" id="option3" autocomplete="off"> Random
-				  </label>
-				  <label class="btn btn-secondary">
-					<input type="radio" name="options" id="option3" autocomplete="off"> Funny
-				  </label>
-				</div>
+				<button class="btn btn-primary" type="submit">Button</button>
+				<input class="btn btn-primary" type="button" value="Input">
+				<input class="btn btn-primary" type="submit" value="Submit">
+				<input class="btn btn-primary" type="reset" value="Reset">
 
               </div>
 
