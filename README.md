@@ -16,6 +16,7 @@ A Project by:
         * [Setting Up Slave](#slave)
         * [Setting up Ngix](#nginx-configuration-with-spark-job-server-container)
         * [Usage on Spark jobserver](#usage-on-spark-jobserver)
+	* [Nginx Load Balancer]
     
 
 ## Setting up Cassandra
@@ -368,3 +369,6 @@ triton instance disable-firewall phpcass
  ```bash
  curl -X POST "data.input = GO" ""http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true""
  ```
+ 
+ ##Nginx Load Balancer
+ ###We are using Nginx load balancer to achieve SparkJobServer High Availability by using Round-Robin Method
