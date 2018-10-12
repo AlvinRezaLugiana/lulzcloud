@@ -29,15 +29,15 @@ object ReadDB extends SparkJob {
   }
 
   override def runJob(sc: SparkContext, config: Config): Any = {
-	val cassandra = sc.cassandraTable("cloudcomputing", "meme")
 	var raw_input = config.getString("data.input")
 	if(raw_input == "all"){
+		val cassandra = sc.cassandraTable("cloudcomputing", "meme")
 		var count = cassandra.count()
 		if (count.toInt > 0){
 			cassandra.take(count.toInt)
 		}
 	} else {
-		cassandra.where("category = ?",raw_input.toInt).toArray
+		sc.cassandraTable("cloudcomputing", "meme").where("category = ?",raw_input.toInt).toArray
 	}
   }
 }
