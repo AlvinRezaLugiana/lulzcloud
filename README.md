@@ -369,7 +369,7 @@ triton instance disable-firewall phpcass
  curl -X POST "data.input = GO" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true"
  ```
  
-  ### Declaration of external source code:
+  ### Declaration of external source code usage:
   ```
   1. uuid() PHP function from http://www.seanbehan.com/how-to-generate-a-uuid-in-php to generate UUID. 
   ```
