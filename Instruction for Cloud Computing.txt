@@ -1,0 +1,216 @@
+//setup and create the docker environment
+sdc-setup
+eval "$(triton env --docker env)"
+
+//pull cassandra image
+docker pull cassandra:3.11.1 
+
+//run cass1
+docker run -d --network zones --name cass1 cassandra:3.11.1
+
+//get cass1 IP address
+seed=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' cass1) 
+echo $seed
+
+//turn of cass1 firewall
+triton instance disable-firewall cass1
+
+//run cass2
+docker run -d --network zones --name cass2 cassandra:3.11.1
+
+//get cass2 IP address
+seed1=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}' cass2) 
+echo $seed1
+
+//turn of cass2 firewall
+triton instance disable-firewall cass2
+
+//enter cass1 cqlsh
+docker run -it --rm --network zones cassandra:3.11.1 cqlsh $seed
+
+//check cluster
+SELECT peer, data_center from system.peers;
+
+//create keyspace
+CREATE KEYSPACE cloudcomputing WITH REPLICATION = {'class' : 'NetworkTopologyStrategy','datacenter1' : 2};
+
+//use keyspace
+use cloudcomputing;
+
+//create 'meme' table
+CREATE TABLE meme(
+id uuid, 
+file text, 
+title text, 
+author text, 
+category text, 
+time date, 
+likes int, 
+PRIMARY KEY ((category,title,id))
+) ;
+
+//exit cqlsh
+exit
+
+//pull phpcass image
+docker pull oonlyo/phpcass
+
+//run phpcass
+docker run -d --name phpcass -e SSH_PASSWORD=password oonlyo/phpcass 
+
+//disable phpcass firewall
+triton instance disable-firewall phpcass
+
+//enter phpcass shell
+docker exec -ti phpcass sh 
+
+SPARK
+.Spark job server:
+1. docker pull velvia/spark-jobserver:0.6.2.mesos-0.28.1.spark-1.6.1
+2. 
+
+A.Master:
+1. docker run -d --network zones --label com.joyent.package=large --name spark_master_1 -e SPARK_TYPE="master" velvia/spark-jobserver:0.6.2.mesos-0.28.1.spark-1.6.1
+2. docker exec -ti <container name> /bin/bash
+3. run apt update and apt upgrade
+4. Download jsr166e-1.1.0.jar from http://central.maven.org/maven2/com/twitter/jsr166e/1.1.0/jsr166e-1.1.0.jar
+5. Download spark-cassandra-connector-1.6.12-s_2.10.jar from http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/1.6.12-s_2.10/spark-cassandra-connector-1.6.12-s_2.10.jar
+6. Move all the downloaded files into /app folder
+7. go to /app folder
+
+8. open server_start.sh with text editor
+9. at the beginning add the following line:
+
+./spark/sbin/start-master.sh
+
+10. Change the following section in server_start.sh:
+
+cmd='$SPARK_HOME/bin/spark-submit --class $MAIN --driver-memory $JOBSERVER_MEMORY
+  --conf "spark.executor.extraJavaOptions=$LOGGING_OPTS"
+  --driver-java-options "$GC_OPTS $JAVA_OPTS $LOGGING_OPTS $CONFIG_OVERRIDES"
+  $@ $appdir/spark-job-server.jar $conffile'
+
+into becoming:
+
+cmd='$SPARK_HOME/bin/spark-submit --class $MAIN --master spark://*.*.*.*:7077 --driver-memory $JOBSERVER_MEMORY
+  --conf "spark.executor.extraJavaOptions=$LOGGING_OPTS"
+  --driver-java-options "$GC_OPTS $JAVA_OPTS $LOGGING_OPTS $CONFIG_OVERRIDES"
+  --jars $appdir/jsr166e-1.1.0.jar,$appdir/spark-cassandra-connector-1.6.12-s_2.10.jar $appdir/spark-job-server.jar $conffile'
+
+This change will link spark job server with spark cassandra connector and spark master
+
+11. Open docker.conf file with text editor and change the following section:
+
+context-settings {
+    num-cpu-cores = 2           # Number of cores to allocate.  Required.
+    memory-per-node = 512m         # Executor memory per node, -Xmx style eg 512m, #1G, etc.
+
+    # in case spark distribution should be accessed from HDFS (as opposed to being installed on every mesos slave)
+    # spark.executor.uri = "hdfs://namenode:8020/apps/spark/spark.tgz"
+
+    # uris of jars to be loaded into the classpath for this context. Uris is a string list, or a string separated by commas ','
+    # dependent-jar-uris = ["file:///some/path/present/in/each/mesos/slave/somepackage.jar"]
+
+    # If you wish to pass any settings directly to the sparkConf as-is, add them here in passthrough,
+    # such as hadoop connection settings that don't use the "spark." prefix
+    passthrough {
+      #es.nodes = "192.1.1.1"
+    }
+
+into:
+
+  context-settings {
+    num-cpu-cores = 2           # Number of cores to allocate.  Required.
+    memory-per-node = 512m         # Executor memory per node, -Xmx style eg 512m, #1G, etc.
+
+    # in case spark distribution should be accessed from HDFS (as opposed to being installed on every mesos slave)
+    # spark.executor.uri = "hdfs://namenode:8020/apps/spark/spark.tgz"
+
+    spark.cassandra.connection.host = <cassandra host ip address>
+
+    # uris of jars to be loaded into the classpath for this context. Uris is a string list, or a string separated by commas ','
+    # dependent-jar-uris = ["file:///some/path/present/in/each/mesos/slave/somepackage.jar"]
+
+    # If you wish to pass any settings directly to the sparkConf as-is, add them here in passthrough,
+    # such as hadoop connection settings that don't use the "spark." prefix
+    passthrough {
+      #es.nodes = "192.1.1.1"
+    }
+ 
+12. save the change and restart the container
+
+
+B.Slave:
+1. docker run -d --network zones --label com.joyent.package=huge --name spark_slave_1 -e SPARK_WORKER_CORES=2 velvia/spark-jobserver:0.6.2.mesos-0.28.1.spark-1.6.1
+2. docker exec -ti <container name> /bin/bash
+3. run apt update and apt upgrade
+4. add the following command on the beginning of /app/server_start.sh file:
+
+./spark/sbin/start-slave spark://<spark_master_1 ip address>:7077,<spark_master_2 ip address>:7077
+
+5. save the change and restart the container
+
+C. Nginx configuration with spark job server container:
+1. docker run -d --network zones --label com.joyent.package=large --name spark_master_1 -e SPARK_TYPE="master" velvia/spark-jobserver:0.6.2.mesos-0.28.1.spark-1.6.1
+2. docker exec -ti <container name> /bin/bash
+3. run apt update and apt upgrade
+4. run apt install nginx
+5. remove /etc/nginx/sites-enabled/default
+6. go to /etc/nginx/conf.d/
+7. type nano load-balancer.conf
+8. write the following config:
+
+upstream spark {
+   server <spark_master_1 ip address:8090> ; 
+   server <spark_master_2 ip address:8090>;
+}
+
+server {
+   listen 80; 
+
+   location / {
+      proxy_pass http://spark;
+   }
+}
+
+9. save the config and restart nginx service
+
+D. Usage on spark jobserver:
+1. Deploy App (in our case is something to do with crud operation in the database, the source code can be accessed inside github crud package folder)
+
+curl -X POST --data-binary @app.jar http://s4511454.uqcloud.net/jars/<name-of-the-app>
+
+2. Create persistent context (Do this inside spark jobserver master container)
+
+curl -X POST "localhost:8090/contexts/meme-context?num-cpu-cores=2&mem-per-node=1G"
+
+
+E. Example crud Application Usage on Spark Job Server:
+
+A. Insert Data into Cassandra
+
+curl -X POST "data.input = <id>, <title>, <author>, <file>, <time>, <category>" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.CreateDB&context=meme-context&sync=true"
+
+B. Update Data into Cassandra
+
+curl -X POST "data.input = <id>, <title>, <author>, <file>, <time>, <likes>, <category>" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.UpdateDB&context=meme-context&sync=true"
+
+C. Delete Data into Cassandra
+
+curl -X POST "data.input = <category>, <title>, <id>" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.DeleteDB&context=meme-context&sync=true"
+
+D. Read Data from Cassandra
+
+Based on category:
+
+curl -X POST "data.input = <category>" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.ReadDB&context=meme-context&sync=true"
+
+Take All:
+
+curl -X POST "data.input = all" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.ReadDB&context=meme-context&sync=true"
+
+E. Find average likes from cassandra using aggragate function in spark
+
+curl -X POST "data.input = GO" ""http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true""
+
+  
