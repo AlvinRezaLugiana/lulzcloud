@@ -12,10 +12,10 @@ A Project by:
     * [Setting Up Cassandra](#setting-up-cassandra)
     * [PHPCass (If without Spark Job Server and directly called from Cassandra)](#phpcass-if-without-spark-job-server-and-directly-called-from-cassandra)
     * [Setting up Spark Job Server (RESTFUL Web API)](#setting-up-spark-job-server-restful-web-api)
-        *[Setting Up Master](#master)
-        *[Setting Up Slave](#slave)
-        *[Setting up Ngix](#nginx-configuration-with-spark-job-server-container)
-        *[Usage on Spark jobserver](#usage-on-spark-jobserver)
+        * [Setting Up Master](#master)
+        * [Setting Up Slave](#slave)
+        * [Setting up Ngix](#nginx-configuration-with-spark-job-server-container)
+        * [Usage on Spark jobserver](#usage-on-spark-jobserver)
     
 
 ## Setting up Cassandra
