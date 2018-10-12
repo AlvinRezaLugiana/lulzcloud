@@ -248,7 +248,7 @@
             else if(isset($_POST['rancat']))
             {
                 // Random Category
-                $result = sparkjs_read('2');
+                $result = sparkjs_read('3');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
@@ -317,7 +317,7 @@
             else if(isset($_POST['funcat']))
             {
                 // Funny Category
-                $result = sparkjs_read('3');
+                $result = sparkjs_read('2');
                 if (empty($array)) {
                     foreach ($result as $row) { // results and rows implement Iterator, Countable and ArrayAccess
                         echo "<div class=\"card text-center\" style=\"width: 23rem; margin:0 auto;\">";
