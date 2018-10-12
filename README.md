@@ -6,6 +6,8 @@ A Project by:
 - Sze Yan, 
 - You Chen
 
+We are using Nginx load balancer to achieve SparkJobServer High Availability by using Round-Robin Method
+
  TABLE OF CONTENT
 =======================================================================
 * [LULZCLOUD](#lulzcloud)
