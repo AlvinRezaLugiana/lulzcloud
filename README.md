@@ -178,19 +178,19 @@ triton instance disable-firewall phpcass
    --conf "spark.executor.extraJavaOptions=$LOGGING_OPTS"
    --driver-java-options "$GC_OPTS $JAVA_OPTS $LOGGING_OPTS $CONFIG_OVERRIDES"
    $@ $appdir/spark-job-server.jar $conffile'
- 
+ ```
    
- to
- 
+ #to
+ ```
  cmd='$SPARK_HOME/bin/spark-submit --class $MAIN --master spark://*.*.*.*:7077 --driver-memory $JOBSERVER_MEMORY
    --conf "spark.executor.extraJavaOptions=$LOGGING_OPTS"
    --driver-java-options "$GC_OPTS $JAVA_OPTS $LOGGING_OPTS $CONFIG_OVERRIDES"
    --jars $appdir/jsr166e-1.1.0.jar,$appdir/spark-cassandra-connector-1.6.12-s_2.10.jar $appdir/spark-job-server.jar $conffile'
- 
- This change will link spark job server with spark cassandra connector and spark master
- 
  ```
- #### Step 11 Open docker.conf file with text editor and change the following section:
+ #This change will link spark job server with spark cassandra connector and spark master
+ 
+ 
+ #### Step 11 Open docker.conf file with text editor and change the following section in order to set spark.cassandra.connection.host:
  ```bash
  context-settings {
      num-cpu-cores = 2           # Number of cores to allocate.  Required.
@@ -207,9 +207,9 @@ triton instance disable-firewall phpcass
      passthrough {
        #es.nodes = "192.1.1.1"
      }
- 
- to
- 
+ ```
+ #to
+ ```
    context-settings {
      num-cpu-cores = 2           # Number of cores to allocate.  Required.
      memory-per-node = 512m         # Executor memory per node, -Xmx style eg 512m, #1G, etc.
@@ -367,5 +367,5 @@ triton instance disable-firewall phpcass
  
  #### E. Find average likes from cassandra using aggragate function in spark
  ```bash
- curl -X POST "data.input = GO" ""http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true""
+ curl -X POST "data.input = GO" "http://s4511454.uqcloud.net/jobs?appName=crud&classPath=spark.jobserver.AvgLikes&context=meme-context&sync=true"
  ```
